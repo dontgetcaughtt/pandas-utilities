@@ -3,7 +3,62 @@ import unittest
 import pandas as pd
 import numpy as np
 
-from pdutils import merge_non_na_values
+from pdutils import merge_non_na_values, eq_series
+
+class TestMultipleEqual (unittest.TestCase):
+    
+    def setUp (self):
+        self.s1 = pd.Series([1.0, 2.0,    3.0])
+        self.s2 = pd.Series([1.0, np.nan, 3.0])
+        self.s3 = pd.Series([1.0, np.nan, 3.0])
+        self.s4 = pd.Series([1.0, -2.0,   3.0])
+        self.s5 = pd.Series([1.0, np.nan, np.nan])
+    
+    def test_multiple_eq (self):
+        r = eq_series([self.s1, self.s2])
+        self.assertTrue(isinstance(r, pd.Series))
+        self.assertEqual(len(r), 3)
+        
+        # Series w/ and w/o NaN
+        self.assertEqual(sum(eq_series([self.s1, self.s2], na='all')),  2)
+        self.assertEqual(sum(eq_series([self.s1, self.s2], na='any')),  3)
+        self.assertEqual(sum(eq_series([self.s1, self.s2], na='none')), 2)
+        
+        # all Series w/ NaN
+        self.assertEqual(sum(eq_series([self.s2, self.s2], na='all')),  3)
+        self.assertEqual(sum(eq_series([self.s2, self.s2], na='any')),  3)
+        self.assertEqual(sum(eq_series([self.s2, self.s2], na='none')), 2)
+        
+        # all Series w/o NaN
+        self.assertEqual(sum(eq_series([self.s1, self.s1], na='all')),  3)
+        self.assertEqual(sum(eq_series([self.s1, self.s1], na='any')),  3)
+        self.assertEqual(sum(eq_series([self.s1, self.s1], na='none')), 3)
+        
+        # all/none check equality pairwise, and may not be obscured by xxx NaNs
+        self.assertEqual(sum(eq_series([self.s1, self.s2, self.s3, self.s4], na='all')), 2)
+        self.assertEqual(sum(eq_series([self.s1, self.s2, self.s3, self.s4], na='any')), 2)
+        self.assertEqual(sum(eq_series([self.s1, self.s2, self.s3, self.s4], na='none')), 2)
+        
+        self.assertEqual(sum(eq_series([self.s5, self.s2, self.s3], na='all')),  2)
+        self.assertEqual(sum(eq_series([self.s5, self.s2, self.s3], na='any')),  3)
+        self.assertEqual(sum(eq_series([self.s5, self.s2, self.s3], na='none')), 1)
+        
+        # order of NaN could theoretically affect pairwise comparison
+        a = eq_series([self.s1, self.s2, self.s3, self.s4], na='any')
+        b = eq_series([self.s1, self.s4, self.s3, self.s2], na='any')
+        self.assertTrue(pd.Series.eq(a, b).all())
+        a = eq_series([self.s1, self.s2, self.s3], na='any')
+        b = eq_series([self.s2, self.s1, self.s3], na='any')
+        self.assertTrue(pd.Series.eq(a, b).all())
+        
+        # single or empty list
+        self.assertEqual(sum(eq_series([self.s5], na='all')),  3)
+        self.assertEqual(sum(eq_series([self.s5], na='any')),  3)
+        self.assertEqual(sum(eq_series([self.s5], na='none')), 3)
+        
+        # invalid keyword argument
+        self.assertRaises(ValueError, eq_series, [self.s1, self.s2], 'foobar')
+        
 
 class TestMergeNonNA (unittest.TestCase):
     
@@ -39,7 +94,7 @@ class TestMergeNonNA (unittest.TestCase):
         self.assertTrue(pd.Series.equals(r, self.df['A']))
     
     def test_series (self):
-        
+        # only one; empty
         self.assertTrue(isinstance(merge_non_na_values([self.s]), pd.Series))
         
         r = merge_non_na_values([self.s1, self.s2, self.s3, self.s4])
