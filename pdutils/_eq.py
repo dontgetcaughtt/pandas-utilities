@@ -1,9 +1,12 @@
 from itertools import permutations, pairwise
+from typing import Union, Optional
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-def eq_multiple (series: list, na: str = 'any') -> pd.Series:
+def eq_multiple (series: Union[list[Union[pd.Series, np.ndarray, list, tuple, dict]], pd.DataFrame],
+                 na: Optional[str] = 'any'
+                 ) -> pd.Series:
     """
     Compare multiple Series elementwise.
     
@@ -15,7 +18,7 @@ def eq_multiple (series: list, na: str = 'any') -> pd.Series:
     
     Parameters
     ----------
-    series : list of (pd.Series or np.ndarray or list or tuple)
+    series : sequence of array-like or pd.DataFrame
         List of Series to compare with each other.
     
     na : {'all', 'any, 'none'}, default 'any'
@@ -102,16 +105,19 @@ def eq_multiple (series: list, na: str = 'any') -> pd.Series:
     1 True
     dtype: bool
     """
+    if isinstance(series, pd.DataFrame):
+        series = [s for _, s in series.iteritems()]
+    
     if not isinstance(series, list):
         return pd.Series([True for _ in range(len(series))])
     
     if len(series) == 0:
-        raise ValueError("List of Series to compare may not be empty.")
+        raise ValueError("List of Series may not be empty.")
     
     n = len(series[0])
     for i, elem in enumerate(series):
         if len(elem) != n:
-            raise ValueError("Lengths of Series to compare must be equal.")
+            raise ValueError("Lengths of all Series must be equal.")
         if isinstance(elem, pd.Series):
             continue
         elif isinstance(elem, (np.ndarray, list, tuple)):
@@ -135,7 +141,9 @@ def eq_multiple (series: list, na: str = 'any') -> pd.Series:
                          "['any', 'all', 'none'], got {na} instead.")
     return check
 
-def equals_multiple (series: list, na: str = 'any') -> bool:
+def equals_multiple (series: Union[list[Union[pd.Series, np.ndarray, list, tuple, dict]], pd.DataFrame],
+                     na: Optional[str] = 'any'
+                     ) -> pd.Series:
     """
     Test whether multiple Series contain the same elements.
     
@@ -147,7 +155,7 @@ def equals_multiple (series: list, na: str = 'any') -> bool:
     
     Parameters
     ----------
-    series : list of (pd.Series or np.ndarray or list or tuple)
+    series : sequence of array-like or pd.DataFrame
         List of Series to compare with each other.
     
     na : {'all', 'any, 'none'}, default 'any'

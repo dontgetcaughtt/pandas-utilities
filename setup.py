@@ -11,6 +11,10 @@ setup(
     author='Kristoffer Thom',
     author_email='dontgetcaughtt@outlook.com',
     description='More or less useful utilities for pandas',
-    python_requires='>=3.10',
-    install_requires='pandas'
+    keywords='pandas, utilities',
+    python_requires='>=3.7',
+    install_requires=[
+        'pandas',
+        'numpy'
+    ]
 )

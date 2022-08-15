@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pandas-utils"
+description = "More or less useful utilities for pandas"
+readme = "README.md"
+authors = [{ name = "Kristoffer Thom", email = "dontgetcaughtt@outlook.com" }]
+requires-python = ">=3.7"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Utilities",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "requests"
+]
+
+
+[project.urls]
+homepage = "https://github.com/dontgetcaughtt/pd-utils"

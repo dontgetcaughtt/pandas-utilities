@@ -1,7 +1,7 @@
 import unittest
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from pdutils import eq_multiple, equals_multiple
 
@@ -77,6 +77,12 @@ class TestMultipleEqual (unittest.TestCase):
         
         # invalid keyword argument
         self.assertRaises(ValueError, eq_multiple, [self.s1, self.s2], 'foobar')
+        
+        # DataFrame as input
+        df = pd.concat([self.s5, self.s2, self.s3], axis='columns')
+        self.assertEqual(sum(eq_multiple(df, na='all')), 2)
+        self.assertEqual(sum(eq_multiple(df, na='any')), 3)
+        self.assertEqual(sum(eq_multiple(df, na='none')), 1)
     
     def test_multiple_equals (self):
         r = equals_multiple([self.s1, self.s2])
@@ -134,3 +140,12 @@ class TestMultipleEqual (unittest.TestCase):
         
         # invalid keyword argument
         self.assertRaises(ValueError, equals_multiple, [self.s1, self.s2], 'foobar')
+
+        # DataFrame as input
+        df = pd.concat([self.s5, self.s2, self.s3], axis='columns')
+        self.assertFalse(equals_multiple(df, na='all'))
+        self.assertTrue(equals_multiple(df, na='any'))
+        self.assertFalse(equals_multiple(df, na='none'))
+
+if __name__ == '__main__':
+    unittest.main()
