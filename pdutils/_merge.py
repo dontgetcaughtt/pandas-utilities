@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 def merge_non_na (data: Union[list[Union[pd.Series, np.ndarray, list, tuple, dict]], pd.DataFrame],
-                         remaining_na: Optional[str] = 'raise'
-                         ) -> pd.Series:
+                  remaining_na: Optional[str] = 'raise'
+                  ) -> pd.Series:
     """
     Combine multiple Series by filling NA values with non-NA values from
     the others.

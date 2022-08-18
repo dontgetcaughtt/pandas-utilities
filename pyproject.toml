@@ -1,9 +1,10 @@
 [build-system]
-requires = ["setuptools", "setuptools-scm"]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "pandas-utils"
+version = "0.1"
 description = "More or less useful utilities for pandas"
 readme = "README.md"
 authors = [{ name = "Kristoffer Thom", email = "dontgetcaughtt@outlook.com" }]
@@ -19,9 +20,9 @@ classifiers = [
     "Topic :: Scientific/Engineering",
 ]
 dependencies = [
-    "requests"
+    "pandas",
+    "numpy"
 ]
-
 
 [project.urls]
 homepage = "https://github.com/dontgetcaughtt/pd-utils"
