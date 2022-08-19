@@ -7,7 +7,7 @@ Just a collection of (more or less) useful utility functions for working with pa
 Use pip to install pandas-utils
 
 ```
-pip install pd-utils
+pip install pandas-utils
 ```
 
 ## Usage
