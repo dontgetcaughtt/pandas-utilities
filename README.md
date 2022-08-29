@@ -1,7 +1,10 @@
 # pandas-utils
 
+![PyPI](https://img.shields.io/pypi/v/pandasutils?label=version)
 ![GitHub](https://img.shields.io/github/license/dontgetcaughtt/pandas-utils)
-<!-- version, versioning, codecov, status -->
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pandasutils)
+[<img src="https://img.shields.io/badge/calver-YYYY.MINOR-22bfda.svg">](http://calver.org)
+<!-- ![Codecov](https://img.shields.io/codecov/c/github/dontgetcaughtt/pandas-utils) -->
 
 Just a collection of (more or less) useful utility functions for working with pandas.
 
@@ -11,7 +14,7 @@ Use pip to install pandas-utils. Note that although all functions already includ
 are stable and can be used for production, the API itself is not fixed yet and might 
 change in future releases.
 ```
-pip install pandas-utils
+pip install pandasutils
 ```
 
 ## Usage
