@@ -22,7 +22,7 @@ class TestMergeNonNA(unittest.TestCase):
         self.s6 = pd.Series({'red': 777.7,                  'green': 111.1})
         self.s7 = pd.Series({'red': 777.7,  'cyan': 135.7,  'green': 111.1})
         self.s8 = pd.Series({'red': np.nan, 'blue': np.nan, 'green': np.nan})
-        self.s  = pd.Series({'red': 777.7,   'blue': 222.2,  'green': 111.1})
+        self.s  = pd.Series({'red': 777.7,  'blue': 222.2,  'green': 111.1})
         
         self.l1 = list(self.s1)
         self.t1 = tuple(self.s1)

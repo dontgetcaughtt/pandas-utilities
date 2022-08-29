@@ -7,13 +7,16 @@ Just a collection of (more or less) useful utility functions for working with pa
 
 ## Installation
 
-Use pip to install pandas-utils. Note that the API is not stable yet and might 
+Use pip to install pandas-utils. Note that although all functions already included 
+are stable and can be used for production, the API itself is not fixed yet and might 
 change in future releases.
 ```
 pip install pandas-utils
 ```
 
 ## Usage
+_This section is only meant to give a short overview . For more detailed 
+descriptions and additional examples, please refer to the docstrings._
 
 ```python
 import pdutils
@@ -100,7 +103,7 @@ You can contribute in various ways, all of them are highly appreciated:
 - **Report bugs** using [GitHub's Issure Tracker](https://github.com/dontgetcaughtt/pandas-utils/issues).
 - **Fix bugs** from the list above.
 - **Implement additional features** add submit your code through a pull request.
-- **Submit Feedback** ideally by filling an [issue](https://github.com/dontgetcaughtt/pandas-utils/issues).
+- **Submit feedback**, ideally by filling an [issue](https://github.com/dontgetcaughtt/pandas-utils/issues).
 
 ## License
 
