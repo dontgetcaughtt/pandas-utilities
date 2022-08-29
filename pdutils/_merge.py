@@ -23,7 +23,7 @@ def merge_non_na (data: Union[list[Union[pd.Series, np.ndarray, list, tuple, dic
     data : sequence of array-like or pd.DataFrame
         Series to merge/choose values from.
     
-    remaining_na : {'raise', 'warn', 'ignore'}, default 'raise
+    remaining_na : {'raise', 'warn', 'ignore'}, default 'raise'
         What to do, when NA values remain after merging:
         - ``raise``: Raise a ValueError.
         - ``warn``: Throw an UserWarning and return resulting Series with
